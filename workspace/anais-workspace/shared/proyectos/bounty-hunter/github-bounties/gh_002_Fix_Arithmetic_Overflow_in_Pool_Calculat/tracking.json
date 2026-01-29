@@ -1,0 +1,16 @@
+{
+  "bounty_id": "gh_002",
+  "title": "Fix Arithmetic Overflow in Pool Calculator",
+  "platform": "GitHub",
+  "currency": "USDT",
+  "amount": 1200,
+  "repo": "github.com/curve/protocol",
+  "created_at": "2026-01-29T20:56:06.652922",
+  "status": "started",
+  "progress": 0,
+  "pr_url": null,
+  "payment_wallet": null,
+  "completed_at": null,
+  "paid_at": null,
+  "notes": []
+}

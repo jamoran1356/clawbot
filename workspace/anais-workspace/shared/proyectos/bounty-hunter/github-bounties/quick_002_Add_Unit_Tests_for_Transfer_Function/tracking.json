@@ -1,0 +1,16 @@
+{
+  "bounty_id": "quick_002",
+  "title": "Add Unit Tests for Transfer Function",
+  "platform": "Gitcoin",
+  "currency": "USDT",
+  "amount": 300,
+  "repo": "github.com/0x/protocol",
+  "created_at": "2026-01-29T20:56:06.763485",
+  "status": "started",
+  "progress": 0,
+  "pr_url": null,
+  "payment_wallet": null,
+  "completed_at": null,
+  "paid_at": null,
+  "notes": []
+}

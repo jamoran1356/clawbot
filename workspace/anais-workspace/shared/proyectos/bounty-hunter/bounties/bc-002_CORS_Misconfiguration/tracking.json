@@ -1,0 +1,11 @@
+{
+  "bounty_id": "bc_002",
+  "title": "CORS Misconfiguration",
+  "platform": "Bugcrowd",
+  "created_at": "2026-01-29T20:52:03.054775",
+  "status": "started",
+  "progress": 0,
+  "notes": [],
+  "findings": [],
+  "submission_ready": false
+}

@@ -1,0 +1,26 @@
+services:
+  clawbot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: clawbot
+    environment:
+      - CLAWDBOT_WORKSPACE=/workspace
+    volumes:
+      # Un solo volumen de trabajo - simple y directo
+      - ./workspace:/workspace
+      # Configuración persistente de clawdbot
+      - clawbot_config:/root/.clawdbot
+      # Socket de Docker para que clawbot pueda ejecutar contenedores
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "19000:19000"
+    stdin_open: true
+    tty: true
+    working_dir: /workspace
+    restart: unless-stopped
+    command: ["clawdbot", "gateway", "run"]
+
+volumes:
+  workspace:
+  clawbot_config:

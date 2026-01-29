@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 Search API - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Poppins', sans-serif; }
+        
+        .gradient-red {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%);
+        }
+        
+        .gradient-text-red {
+            background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.15);
+        }
+        
+        .blur-nav {
+            backdrop-filter: blur(10px);
+            background: rgba(15, 23, 42, 0.85);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-white">
+    <!-- Navigation -->
+    <nav class="blur-nav sticky top-0 z-50 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 gradient-red rounded-lg flex items-center justify-center font-bold">🔍</div>
+                    <div>
+                        <h1 class="text-xl font-bold gradient-text-red">Search API</h1>
+                        <p class="text-xs text-gray-400">Motor de búsqueda inteligente</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#docs" class="hover:text-red-400 transition">Documentación</a>
+                    <a href="#endpoints" class="hover:text-red-400 transition">Endpoints</a>
+                    <a href="#examples" class="hover:text-red-400 transition">Ejemplos</a>
+                </div>
+                <button class="gradient-red text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg transition">
+                    Conectar
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="relative py-32 px-4 bg-gradient-to-b from-red-900/10 to-slate-950 overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute -top-40 right-0 w-96 h-96 bg-red-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+            <div class="absolute bottom-0 left-0 w-96 h-96 bg-teal-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+        </div>
+
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <div class="inline-block px-4 py-2 rounded-full bg-red-500/10 text-red-300 mb-6 font-semibold text-sm border border-red-500/30">
+                ⚡ API REST Alta Performance
+            </div>
+
+            <h2 class="text-6xl font-bold mb-6 gradient-text-red">
+                Motor de Búsqueda Inteligente
+            </h2>
+            
+            <p class="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
+                Búsqueda rápida, indexación automática y scoring inteligente. Todo en una API REST simple y poderosa.
+            </p>
+
+            <!-- API Example -->
+            <div class="bg-slate-800/50 backdrop-blur rounded-2xl p-8 border border-red-500/20 mb-8">
+                <div class="text-left bg-slate-900 rounded-xl p-6 font-mono text-sm">
+                    <div class="text-gray-500">$ curl -X GET "http://api.example.com/search"</div>
+                    <div class="text-gray-500 mt-2">?q=python&limit=10</div>
+                    <pre class="text-green-400 mt-4 overflow-x-auto">
+{
+  "query": "python",
+  "results": [
+    {
+      "title": "Python Tutorial",
+      "score": 4.5,
+      "category": "Educación"
+    }
+  ],
+  "total": 1,
+  "time_ms": 2.34
+}</pre>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="card-hover bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
+                    <div class="text-4xl mb-4">⚡</div>
+                    <h3 class="font-bold mb-2">Ultra Rápido</h3>
+                    <p class="text-gray-400 text-sm">Búsquedas en < 10ms con índice invertido</p>
+                </div>
+                <div class="card-hover bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
+                    <div class="text-4xl mb-4">🎯</div>
+                    <h3 class="font-bold mb-2">Resultados Relevantes</h3>
+                    <p class="text-gray-400 text-sm">Scoring inteligente: título, categoría, tags</p>
+                </div>
+                <div class="card-hover bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
+                    <div class="text-4xl mb-4">📱</div>
+                    <h3 class="font-bold mb-2">100% REST</h3>
+                    <p class="text-gray-400 text-sm">CRUD completo + filtros + paginación</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Endpoints -->
+    <section id="endpoints" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12 text-center gradient-text-red">Endpoints Principales</h2>
+
+            <div class="space-y-4">
+                <div class="card-hover bg-slate-800 border border-slate-700 rounded-xl p-6 hover:border-red-500">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-bold text-lg">🔎 GET /search</h3>
+                        <span class="px-3 py-1 bg-red-500/20 text-red-300 rounded text-xs font-semibold">Búsqueda</span>
+                    </div>
+                    <p class="text-gray-400 mb-3">
+                        <span class="font-mono text-red-400">query</span> (requerido): Término de búsqueda
+                        <br/>
+                        <span class="font-mono text-red-400">limit</span> (opcional): Máximo resultados (1-100)
+                    </p>
+                    <p class="text-sm text-gray-500">Respuesta: Array de resultados con score de relevancia</p>
+                </div>
+
+                <div class="card-hover bg-slate-800 border border-slate-700 rounded-xl p-6 hover:border-red-500">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-bold text-lg">📄 GET /documents</h3>
+                        <span class="px-3 py-1 bg-blue-500/20 text-blue-300 rounded text-xs font-semibold">Listar</span>
+                    </div>
+                    <p class="text-gray-400 mb-3">
+                        <span class="font-mono text-blue-400">category</span> (opcional): Filtrar por categoría
+                        <br/>
+                        <span class="font-mono text-blue-400">limit</span> (opcional): Resultados por página
+                    </p>
+                    <p class="text-sm text-gray-500">Respuesta: Lista de documentos con paginación</p>
+                </div>
+
+                <div class="card-hover bg-slate-800 border border-slate-700 rounded-xl p-6 hover:border-red-500">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-bold text-lg">➕ POST /documents</h3>
+                        <span class="px-3 py-1 bg-green-500/20 text-green-300 rounded text-xs font-semibold">Crear</span>
+                    </div>
+                    <p class="text-gray-400 mb-3">Body: JSON con id, title, description, category, tags, etc.</p>
+                    <p class="text-sm text-gray-500">Respuesta: Confirmación de creación y actualización del índice</p>
+                </div>
+
+                <div class="card-hover bg-slate-800 border border-slate-700 rounded-xl p-6 hover:border-red-500">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-bold text-lg">🏷️ GET /categories</h3>
+                        <span class="px-3 py-1 bg-purple-500/20 text-purple-300 rounded text-xs font-semibold">Info</span>
+                    </div>
+                    <p class="text-gray-400 mb-3">Sin parámetros</p>
+                    <p class="text-sm text-gray-500">Respuesta: Lista de categorías disponibles y conteo</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="py-20 px-4 bg-slate-900/50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12 text-center gradient-text-red">Rendimiento</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-gradient-to-br from-red-900/30 to-red-900/10 border border-red-500/30 rounded-xl p-8">
+                    <div class="text-5xl font-bold text-red-400 mb-2">< 10ms</div>
+                    <div class="text-gray-400">Tiempo promedio búsqueda</div>
+                    <div class="text-sm text-gray-500 mt-2">Con índice invertido O(1)</div>
+                </div>
+                <div class="bg-gradient-to-br from-teal-900/30 to-teal-900/10 border border-teal-500/30 rounded-xl p-8">
+                    <div class="text-5xl font-bold text-teal-400 mb-2">250+</div>
+                    <div class="text-gray-400">Palabras indexadas</div>
+                    <div class="text-sm text-gray-500 mt-2">Actualización automática</div>
+                </div>
+                <div class="bg-gradient-to-br from-cyan-900/30 to-cyan-900/10 border border-cyan-500/30 rounded-xl p-8">
+                    <div class="text-5xl font-bold text-cyan-400 mb-2">10</div>
+                    <div class="text-gray-400">Documentos iniciales</div>
+                    <div class="text-sm text-gray-500 mt-2">Escalable a miles</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Examples -->
+    <section id="examples" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12 text-center gradient-text-red">Ejemplos de Uso</h2>
+
+            <div class="space-y-6">
+                <div class="bg-slate-800 border border-slate-700 rounded-xl p-8">
+                    <h3 class="font-bold text-lg mb-4">📚 Búsqueda Simple</h3>
+                    <div class="bg-slate-900 rounded-lg p-4 font-mono text-sm text-gray-300 overflow-x-auto">
+                        curl "http://api.example.com/search?q=python&limit=5"
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 border border-slate-700 rounded-xl p-8">
+                    <h3 class="font-bold text-lg mb-4">🏷️ Filtrar por Categoría</h3>
+                    <div class="bg-slate-900 rounded-lg p-4 font-mono text-sm text-gray-300 overflow-x-auto">
+                        curl "http://api.example.com/documents?category=Backend&limit=10"
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 border border-slate-700 rounded-xl p-8">
+                    <h3 class="font-bold text-lg mb-4">➕ Agregar Documento</h3>
+                    <div class="bg-slate-900 rounded-lg p-4 font-mono text-sm text-gray-300 overflow-x-auto">
+                        curl -X POST "http://api.example.com/documents" \<br/>
+                        &nbsp;&nbsp;-H "Content-Type: application/json" \<br/>
+                        &nbsp;&nbsp;-d '{"id":"11", "title":"Mi Artículo", ...}'
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation -->
+    <section id="docs" class="py-20 px-4 bg-slate-900/50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12 text-center gradient-text-red">Documentación</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-slate-800 border border-slate-700 rounded-xl p-8">
+                    <h3 class="font-bold text-xl mb-4">📖 Guía Rápida</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li>✓ Instalación en 2 minutos</li>
+                        <li>✓ 9 endpoints REST</li>
+                        <li>✓ Cliente Python incluido</li>
+                        <li>✓ Swagger UI automático</li>
+                        <li>✓ Zero configuración</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-800 border border-slate-700 rounded-xl p-8">
+                    <h3 class="font-bold text-xl mb-4">🚀 Deploy</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li>✓ Vercel: 1 click</li>
+                        <li>✓ Netlify: drag & drop</li>
+                        <li>✓ Docker: incluido</li>
+                        <li>✓ Heroku: git push</li>
+                        <li>✓ Self-hosted: simple</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 px-4 bg-gradient-to-r from-red-900/20 to-red-900/0">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-6 gradient-text-red">¿Listo para integrar?</h2>
+            <p class="text-xl text-gray-300 mb-8">Accede a la documentación completa y comienza a buscar</p>
+            <button class="gradient-red text-white px-12 py-4 rounded-xl font-semibold hover:shadow-lg hover:shadow-red-500/50 transition transform hover:scale-105">
+                📖 Documentación Completa
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 py-12 px-4 bg-slate-900/50">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h4 class="font-bold mb-4">🔍 Search API</h4>
+                    <p class="text-gray-400 text-sm">Motor de búsqueda inteligente y escalable</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Enlaces</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-red-400">Docs</a></li>
+                        <li><a href="#" class="hover:text-red-400">GitHub</a></li>
+                        <li><a href="#" class="hover:text-red-400">API Status</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-red-400">Privacidad</a></li>
+                        <li><a href="#" class="hover:text-red-400">Términos</a></li>
+                        <li><a href="#" class="hover:text-red-400">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 text-center text-gray-500 text-sm">
+                <p>&copy; 2026 Search API | Creado con ❤️ por Anais 🐎</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

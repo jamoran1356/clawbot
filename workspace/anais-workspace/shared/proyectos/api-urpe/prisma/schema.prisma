@@ -1,0 +1,187 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+enum ApiStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+enum ConnectionType {
+  SUPABASE
+  N8N
+  WEBHOOK
+  REST_API
+  SMTP
+  CUSTOM
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String
+  role      UserRole @default(USER)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  apis      ApiEndpoint[]
+  apiKeys   ApiKey[]
+  emails    EmailCampaign[]
+
+  @@map("users")
+}
+
+model ApiEndpoint {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  status      ApiStatus @default(ACTIVE)
+  
+  // Configuración del endpoint
+  method      String    @default("POST") // GET, POST, PUT, DELETE
+  targetUrl   String    // URL destino (Supabase, n8n, etc)
+  
+  // Configuración de transformación
+  requestTransform  Json?   // Transformación del request
+  responseTransform Json?   // Transformación del response
+  headers           Json?   // Headers personalizados
+  
+  // Seguridad
+  requireApiKey     Boolean @default(true)
+  allowedOrigins    Json?   // CORS
+  rateLimit         Int     @default(100) // requests per minute
+  
+  // Conexión
+  connectionId      String?
+  connection        Connection? @relation(fields: [connectionId], references: [id])
+  
+  // Metadata
+  userId            String
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  apiKeys           ApiKey[]
+  requests          Request[]
+
+  @@map("api_endpoints")
+}
+
+model ApiKey {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  name        String
+  isActive    Boolean  @default(true)
+  
+  // Permisos
+  endpointId  String?
+  endpoint    ApiEndpoint? @relation(fields: [endpointId], references: [id], onDelete: Cascade)
+  
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  lastUsedAt  DateTime?
+  expiresAt   DateTime?
+  createdAt   DateTime @default(now())
+  
+  requests    Request[]
+
+  @@map("api_keys")
+}
+
+model Connection {
+  id          String         @id @default(cuid())
+  name        String
+  type        ConnectionType
+  
+  // Configuración de conexión
+  config      Json           // { apiUrl, apiKey, etc }
+  
+  userId      String
+  isActive    Boolean        @default(true)
+  
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  
+  endpoints   ApiEndpoint[]
+
+  @@map("connections")
+}
+
+model Request {
+  id          String   @id @default(cuid())
+  
+  // Request info
+  endpointId  String
+  endpoint    ApiEndpoint @relation(fields: [endpointId], references: [id], onDelete: Cascade)
+  
+  apiKeyId    String?
+  apiKey      ApiKey?  @relation(fields: [apiKeyId], references: [id])
+  
+  method      String
+  path        String
+  headers     Json?
+  body        Json?
+  query       Json?
+  
+  // Response info
+  statusCode  Int?
+  responseTime Int?     // milliseconds
+  responseBody Json?
+  
+  // Metadata
+  ipAddress   String?
+  userAgent   String?
+  
+  createdAt   DateTime @default(now())
+
+  @@index([endpointId, createdAt])
+  @@index([apiKeyId])
+  @@map("requests")
+}
+
+model EmailCampaign {
+  id          String   @id @default(cuid())
+  name        String
+  subject     String
+  body        String   @db.Text
+  
+  // Configuración
+  fromEmail   String
+  fromName    String?
+  
+  // Estado: DRAFT, QUEUED, SENDING, SENT, FAILED, CANCELLED
+  status      String   @default("DRAFT")
+  
+  // Recipients
+  recipients  Json     // Array de emails o query
+  sentCount   Int      @default(0)
+  failedCount Int      @default(0)
+  
+  // Programación
+  scheduledAt DateTime?
+  sentAt      DateTime?
+  
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("email_campaigns")
+}
