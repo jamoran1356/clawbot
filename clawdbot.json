@@ -1,7 +1,18 @@
 {
   "gateway": {
     "mode": "local",
-    "port": 19000,
-    "bind": "lan"
+    "port": 19000
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "anthropic/claude-3-5-haiku-latest"
+      }
+    }
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true
+    }
   }
 }

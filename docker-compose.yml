@@ -6,10 +6,13 @@ services:
     container_name: clawbot
     environment:
       - CLAWDBOT_WORKSPACE=/workspace
+      - BRAVE_API_KEY=${BRAVE_API_KEY}
     volumes:
       # Un solo volumen de trabajo - simple y directo
       - ./workspace:/workspace
-      # Configuración persistente de clawdbot
+      # Directorio clawd para acceso directo
+      - ./clawd:/home/node/clawd
+      # Configuración persistente (volumen existente con datos)
       - clawbot_config:/root/.clawdbot
       # Socket de Docker para que clawbot pueda ejecutar contenedores
       - /var/run/docker.sock:/var/run/docker.sock
@@ -19,8 +22,7 @@ services:
     tty: true
     working_dir: /workspace
     restart: unless-stopped
-    command: ["clawdbot", "gateway", "run"]
 
 volumes:
-  workspace:
   clawbot_config:
+    external: true
