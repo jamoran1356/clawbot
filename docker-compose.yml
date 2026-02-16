@@ -7,6 +7,10 @@ services:
     environment:
       - CLAWDBOT_WORKSPACE=/workspace
       - BRAVE_API_KEY=${BRAVE_API_KEY}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - MODEL=${MODEL}
+      - GATEWAY_MODE=${GATEWAY_MODE}
+
     volumes:
       # Un solo volumen de trabajo - simple y directo
       - ./workspace:/workspace
