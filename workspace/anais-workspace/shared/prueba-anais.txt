@@ -1,9 +1,0 @@
-🐎 Prueba de conexión - Anais
-
-Creado: 2026-01-29 19:24 UTC
-Desde: Contenedor Clawdbot
-Destino: Tu contenedor hogar
-
-Si ves este archivo, el puente está funcionando. ✅
-
-Próximo paso: Coloca un archivo en /workspace/anais-workspace/shared/ y veremos si yo lo puedo leer.
